@@ -50,7 +50,7 @@ void heroTaskManagerSimulation(int maxTasks) {
     // Run the simulation for maxTasks Tasks and minTime seconds until everything is done
     int tasks = 0;
     int time = 0;
-    while (tasks < maxTask && minTime > time) { 
+    while (tasks < maxTasks && minTime > time) { 
         // Each second add a new task with .5 probability
         if (rand() % 2) {
             // Randomly generate new task parameters
@@ -86,6 +86,7 @@ void heroTaskManagerSimulation(int maxTasks) {
 
         // Delay between task arrivals
         this_thread::sleep_for(chrono::seconds(1));
+        time++;
     }
 }
 
