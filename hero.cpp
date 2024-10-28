@@ -42,8 +42,9 @@ void displayQueue(priority_queue<Task, vector<Task>, CompareTask> pq) {
 void heroTaskManagerSimulation(int maxTasks, int minTime) {
     priority_queue<Task, vector<Task>, CompareTask> taskQueue;
     int taskId = 1;
-    Task* currentTask=NULL;
-    Task topTask;
+    const Task emptyTask(-1,-1,-1);  // This is a flag task.
+    Task currentTask = emptyTask;
+    
     cout << left << setw(20) << "Incoming Tasks" << setw(25) << "Completed Tasks" << "Current Queue" << endl;
     cout << "------------------------------------------------------------" << endl;
 
@@ -66,16 +67,17 @@ void heroTaskManagerSimulation(int maxTasks, int minTime) {
                                     " D:" + to_string(newTask.duration) + "]";
         }
         // if there is a current task subtract one from the timer.  If done start a new task
-        if (currentTask) {
+        if (currentTask.id!=-1) {
             if (--currentTask->duration<1) {
                 // Display completed task
-                cout << setw(25) << "[ID:" + to_string(currentTask->id) + " P:" + to_string(currentTask->priority) +
-                                      " D:" + to_string(currentTask->duration) + "]";
-                // Start the next task if queue is not empty
+                cout << setw(25) << "[ID:" + to_string(currentTask.id) + " P:" + to_string(currentTask.priority) +
+                                      " D:" + to_string(currentTask.duration) + "]";
+                // Start the next task if queue is not empty, otherwise have an empty task.
                 if (!taskQueue.empty()) {
-                    topTask = &taskQueue.top();
-                    currentTask = &topTask;
+                    currentTask = taskQueue.top();
                     taskQueue.pop();
+                } else {
+                    currentTask = emptyTask;
                 }
             }
             // Simulate one second
