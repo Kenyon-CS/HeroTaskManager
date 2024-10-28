@@ -39,7 +39,7 @@ void displayQueue(priority_queue<Task, vector<Task>, CompareTask> pq) {
 }
 
 // Main simulation function
-void heroTaskManagerSimulation(int maxTasks) {
+void heroTaskManagerSimulation(int maxTasks, int minTime) {
     priority_queue<Task, vector<Task>, CompareTask> taskQueue;
     int taskId = 1;
     Task* currentTask=NULL;
