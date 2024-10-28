@@ -51,7 +51,7 @@ void heroTaskManagerSimulation(int maxTasks, int minTime) {
     // Run the simulation for maxTasks Tasks and minTime seconds until everything is done
     int tasks = 0;
     int time = 0;
-    while (tasks < maxTasks && minTime > time || !taskQueue.empty()) { 
+    while ((tasks < maxTasks && minTime > time) || !taskQueue.empty()) { 
         string incomingTaskDisplay = "";
         string completedTaskDisplay = "";
 
