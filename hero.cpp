@@ -43,7 +43,7 @@ void heroTaskManagerSimulation(int maxTasks, int minTime) {
     priority_queue<Task, vector<Task>, CompareTask> taskQueue;
     int taskId = 1;
     Task* currentTask=NULL;
-    
+    Task topTask;
     cout << left << setw(20) << "Incoming Tasks" << setw(25) << "Completed Tasks" << "Current Queue" << endl;
     cout << "------------------------------------------------------------" << endl;
 
@@ -73,7 +73,8 @@ void heroTaskManagerSimulation(int maxTasks, int minTime) {
                                       " D:" + to_string(currentTask->duration) + "]";
                 // Start the next task if queue is not empty
                 if (!taskQueue.empty()) {
-                    currentTask = &taskQueue.top();
+                    topTask = &taskQueue.top();
+                    currentTask = &topTask;
                     taskQueue.pop();
                 }
             }
