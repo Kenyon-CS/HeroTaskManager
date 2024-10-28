@@ -73,7 +73,7 @@ void heroTaskManagerSimulation(int maxTasks, int minTime) {
                                       " D:" + to_string(currentTask->duration) + "]";
                 // Start the next task if queue is not empty
                 if (!taskQueue.empty()) {
-                    currentTask = taskQueue.top();
+                    currentTask = &taskQueue.top();
                     taskQueue.pop();
                 }
             }
