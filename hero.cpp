@@ -92,8 +92,9 @@ void heroTaskManagerSimulation(int maxTasks) {
 int main() {
     srand(static_cast<unsigned int>(time(0))); // Seed random number generator
 
-    int maxTasks = 10; // Number of tasks for the simulation
-    heroTaskManagerSimulation(maxTasks);
+    int maxTasks = 10; // Maximum number of tasks for the simulation
+    int minTime = 20; // minimum run time for simulation;
+    heroTaskManagerSimulation(maxTasks,minTime);
 
     return 0;
 }
