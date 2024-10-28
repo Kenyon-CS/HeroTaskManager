@@ -52,6 +52,9 @@ void heroTaskManagerSimulation(int maxTasks, int minTime) {
     int tasks = 0;
     int time = 0;
     while (tasks < maxTasks && minTime > time) { 
+        string incomingTaskDisplay = "";
+        string completedTaskDisplay = "";
+
         // Each second add a new task with .5 probability
         if (rand() % 2) {
             // Randomly generate new task parameters
@@ -61,33 +64,46 @@ void heroTaskManagerSimulation(int maxTasks, int minTime) {
 
             // Add the new task to the queue
             taskQueue.push(newTask);
-            
-            // Display incoming task
-            cout << left << setw(20) << "[ID:" + to_string(newTask.id) + " P:" + to_string(newTask.priority) +
-                                    " D:" + to_string(newTask.duration) + "]";
+            tasks++;
+
+            // Format incoming task display
+            incomingTaskDisplay = "[ID:" + to_string(newTask.id) + " P:" + to_string(newTask.priority) +
+                                  " D:" + to_string(newTask.duration) + "]";
+        } else {
+            incomingTaskDisplay = "-";
         }
-        // if there is a current task subtract one from the timer.  If done start a new task
-        if (currentTask.id!=-1) {
-            if (--currentTask.duration<1) {
-                // Display completed task
-                cout << setw(25) << "[ID:" + to_string(currentTask.id) + " P:" + to_string(currentTask.priority) +
-                                      " D:" + to_string(currentTask.duration) + "]";
-                // Start the next task if queue is not empty, otherwise have an empty task.
+
+        // Process the current task
+        if (currentTask.id != -1) {
+            currentTask.duration--;
+            if (currentTask.duration <= 0) {
+                // Format completed task display
+                completedTaskDisplay = "[ID:" + to_string(currentTask.id) + " P:" + to_string(currentTask.priority) +
+                                       " D:0]";
+                // Start the next task if queue is not empty, otherwise have an empty task
                 if (!taskQueue.empty()) {
                     currentTask = taskQueue.top();
                     taskQueue.pop();
                 } else {
                     currentTask = emptyTask;
                 }
+            } else {
+                completedTaskDisplay = "-";
             }
-            // Simulate one second
-            this_thread::sleep_for(chrono::seconds(1));
-
-            // Display current contents of priority queue
-            displayQueue(taskQueue);
+        } else if (!taskQueue.empty()) {
+            currentTask = taskQueue.top();
+            taskQueue.pop();
+            completedTaskDisplay = "-";
+        } else {
+            completedTaskDisplay = "-";
         }
 
-        // Delay between task arrivals
+        // Display columns: Incoming Task, Completed Task, and Current Queue
+        cout << left << setw(20) << incomingTaskDisplay
+             << setw(25) << completedTaskDisplay;
+        displayQueue(taskQueue);
+
+        // Simulate one second
         this_thread::sleep_for(chrono::seconds(1));
         time++;
     }
@@ -97,8 +113,8 @@ int main() {
     srand(static_cast<unsigned int>(time(0))); // Seed random number generator
 
     int maxTasks = 10; // Maximum number of tasks for the simulation
-    int minTime = 20; // minimum run time for simulation;
-    heroTaskManagerSimulation(maxTasks,minTime);
+    int minTime = 20;  // Minimum run time for simulation
+    heroTaskManagerSimulation(maxTasks, minTime);
 
     return 0;
 }
