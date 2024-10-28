@@ -69,8 +69,8 @@ void heroTaskManagerSimulation(int maxTasks, int minTime) {
         if (currentTask) {
             if (--currentTask->duration<1) {
                 // Display completed task
-                cout << setw(25) << "[ID:" + to_string(currentTask.id) + " P:" + to_string(currentTask.priority) +
-                                      " D:" + to_string(currentTask.duration) + "]";
+                cout << setw(25) << "[ID:" + to_string(currentTask->id) + " P:" + to_string(currentTask->priority) +
+                                      " D:" + to_string(currentTask->duration) + "]";
                 // Start the next task if queue is not empty
                 if (!taskQueue.empty()) {
                     currentTask = taskQueue.top();
