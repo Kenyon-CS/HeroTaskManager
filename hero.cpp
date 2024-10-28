@@ -42,11 +42,15 @@ void displayQueue(priority_queue<Task, vector<Task>, CompareTask> pq) {
 void heroTaskManagerSimulation(int maxTasks, int minTime) {
     priority_queue<Task, vector<Task>, CompareTask> taskQueue;
     int taskId = 1;
-    const Task emptyTask(-1,-1,-1);  // This is a flag task.
+    const Task emptyTask(-1, -1, -1);  // This is a flag task.
     Task currentTask = emptyTask;
     
-    cout << left << setw(20) << "Incoming Tasks" << setw(25) << "Completed Tasks" << "Current Queue" << endl;
-    cout << "------------------------------------------------------------" << endl;
+    // Updated header to include Time column
+    cout << left << setw(10) << "Time" 
+         << setw(20) << "Incoming Tasks" 
+         << setw(25) << "Completed Tasks" 
+         << "Current Queue" << endl;
+    cout << "-----------------------------------------------------------------------" << endl;
 
     // Run the simulation for maxTasks Tasks and minTime seconds until everything is done
     int tasks = 0;
@@ -65,7 +69,6 @@ void heroTaskManagerSimulation(int maxTasks, int minTime) {
 
             // Add the new task to the queue
             taskQueue.push(newTask);
-            tasks++;
 
             // Format incoming task display
             incomingTaskDisplay = "[ID:" + to_string(newTask.id) + " P:" + to_string(newTask.priority) +
@@ -99,8 +102,9 @@ void heroTaskManagerSimulation(int maxTasks, int minTime) {
             completedTaskDisplay = "-";
         }
 
-        // Display columns: Incoming Task, Completed Task, and Current Queue
-        cout << left << setw(20) << incomingTaskDisplay
+        // Display columns: Time, Incoming Task, Completed Task, and Current Queue
+        cout << left << setw(10) << time
+             << setw(20) << incomingTaskDisplay
              << setw(25) << completedTaskDisplay;
         displayQueue(taskQueue);
 
