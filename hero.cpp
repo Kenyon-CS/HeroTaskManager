@@ -38,7 +38,7 @@ struct CompareTask2 {
 };
 
 // Function to display the priority queue
-void displayQueue(priority_queue<Task, vector<Task>, CompareTask> pq) {
+void displayQueue(priority_queue<Task, vector<Task>, CompareTask2> pq) {
     while (!pq.empty()) {
         Task t = pq.top();
         cout << "[ID:" << t.id << " P:" << t.priority << " D:" << t.duration << "] ";
@@ -49,7 +49,7 @@ void displayQueue(priority_queue<Task, vector<Task>, CompareTask> pq) {
 
 // Main simulation function
 void heroTaskManagerSimulation(int maxTasks, int minTime) {
-    priority_queue<Task, vector<Task>, CompareTask> taskQueue;
+    priority_queue<Task, vector<Task>, CompareTask2> taskQueue;
     int taskId = 1;
     const Task emptyTask(-1, -1, -1);  // This is a flag task.
     Task currentTask = emptyTask;
