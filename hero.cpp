@@ -28,6 +28,15 @@ struct CompareTask {
     }
 };
 
+// Comparator for priority queue (More recent first)
+struct CompareTask2 {
+    bool operator()(const Task& t1, const Task& t2) {
+        // Higher priority first; if equal, shorter duration first
+        return t1.priority < t2.priority || 
+               (t1.priority == t2.priority && t1.id > t2.id);
+    }
+};
+
 // Function to display the priority queue
 void displayQueue(priority_queue<Task, vector<Task>, CompareTask> pq) {
     while (!pq.empty()) {
