@@ -60,7 +60,7 @@ void heroTaskManagerSimulation(int maxTasks, int minTime) {
         string completedTaskDisplay = "";
 
         // Each second add a new task with .75 probability if we have more tasks to generate.
-        if ((rand() % 3)!=0 && tasks < maxTasks) {
+        if ((rand() % 4)!=0 && tasks < maxTasks) {
             // Randomly generate new task parameters
             int priority = rand() % 5 + 1; // Priority from 1 to 5
             int duration = rand() % 5 + 1; // Duration from 1 to 5 seconds
