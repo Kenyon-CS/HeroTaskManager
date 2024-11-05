@@ -20,11 +20,20 @@ struct Task {
 };
 
 // Comparator for priority queue (higher priority first)
-struct CompareTask {
+struct CompareTaskOld {
     bool operator()(const Task& t1, const Task& t2) {
         // Higher priority first; if equal, shorter duration first
         return t1.priority < t2.priority || 
                (t1.priority == t2.priority && t1.duration > t2.duration);
+    }
+};
+
+// Comparator for priority queue (higher priority first)
+struct CompareTask {
+    bool operator()(const Task& t1, const Task& t2) {
+        // Higher priority first; if equal, shorter duration first
+        return t1.duration < t2.duration || 
+               (t1.duration == t2.duration && t1.id > t2.id);
     }
 };
 
